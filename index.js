@@ -1,36 +1,22 @@
-import express, { response } from "express";
+import express from "express";
 import cors from "cors";
+import mongoose from "mongoose";
+import Registered from "./models/RegisterAccounts.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const PORT = 3001;
+const url = process.env.MONGODB_URI;
+
+mongoose.set('strictQuery', false);
+mongoose.connect(url);
 
 app.use(express.json());
 app.use(cors());
 app.use(requestMethosLogger);
 app.use(express.static('dist'));
-
-let registrationUsersData = [
-  {
-    id: 1,
-    username: "Namo!",
-    password: "admin 123"
-  },
-  {
-    id: 2,
-    username: "Namo Ka!",
-    password: "use 123"
-  },
-  {
-    id: 3,
-    username: "Namo Nyo!",
-    password: "admin 456"
-  },
-  {
-    id: 4,
-    username: "Namo Natin Lahat!",
-    password: "user 456"
-  },
-];
 
 function pageNotFound(req, res) {
   res.status(404).send({error: "Page not found"});
@@ -50,17 +36,7 @@ function generateId() {
 }
 
 app.get('/', (req, res) => {
-  res.send('<h1>Inamo!!!</h1>')
-});
-
-app.get('/api/registrationUsersData', (req, res) => {
-  res.json(registrationUsersData);
-});
-
-app.get('/api/registrationUsersData/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const users = registrationUsersData.find((users) => users.id === id)
-  res.json(users);
+  res.send('<h1>Welcome to AA Pharma Inventory System</h1>')
 });
 
 app.post('/api/registrationUsersData', (req, res) => {
@@ -76,22 +52,50 @@ app.post('/api/registrationUsersData', (req, res) => {
   if (!pass.password) {
     return res.status(400).json({error: 'please enter password'})
   }
-  
-  const users = {
+
+  const registered = new Registered ({
     username: user.username,
     password: pass.password,
-    id: generateId(),
-  };
+  });
+  
+  registered.save().then(newRegistered => {
+    res.status(201).json(newRegistered);
+  })
+});
 
-  registrationUsersData = registrationUsersData.concat(users);
+app.get('/api/registrationUsersData', (req, res) => {
+  Registered.find({}).then((registrationUsersData) => {
+    res.json(registrationUsersData);
+  })
+});
 
-  res.status(201).json(users);
+app.get('/api/registrationUsersData/:id', (req, res) => {
+  const id = (req.params.id);
+  Registered.findById(id).then(result => res.json(result));
+});
+
+app.put("/api/registrationUsersData/:id", (req, res) => {
+  const id = req.params.id;
+  const updateData = req.body; 
+
+  Registered.findByIdAndUpdate(id, updateData, { new: true })
+    .then(updatedRecord => {
+      if (updatedRecord) {
+        console.log('Account Updated:', updatedRecord);
+        res.json(updatedRecord);
+      }
+    })
 });
 
 app.delete("/api/registrationUsersData/:id", (req, res) => {
-  const id = Number(req.params.id);
-  registrationUsersData = registrationUsersData.filter((users) => users.id !== id);
-  res.status(204).end();
+  const id = req.params.id;
+  Registered.findByIdAndDelete(id)
+  .then(result => {
+      if (result) {
+        console.log('Account Deleted!');
+        res.status(204).end();
+      }
+    })
 });
 
 app.use(pageNotFound);
