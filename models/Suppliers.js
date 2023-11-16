@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const suppliersSchema = new mongoose.Schema({
-  supplierCode: String,
-  company: String,
-  contactPerson: String,
-  address: String,
-  email: String,
-  status: String,
-  description: String,
-  contactNumber: String
+  supplierCode: { type: String},
+  company: { type: String},
+  contactPerson: { type: String},
+  address: { type: String},
+  email: { type: String},
+  status: { type: String},
+  description: { type: String},
+  contactNumber: { type: String},
 });
 
 suppliersSchema.set('toJSON', {
@@ -19,6 +19,6 @@ suppliersSchema.set('toJSON', {
   }
 })
 
-const suppliers = mongoose.model('Suppliers', suppliersSchema);
+const Suppliers = mongoose.model('Suppliers', suppliersSchema);
 
-export default suppliers;
+export default Suppliers;

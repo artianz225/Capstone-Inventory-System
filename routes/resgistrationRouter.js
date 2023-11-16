@@ -8,7 +8,5 @@ registrationRouter.get('/:id', usersAccountController.getRegisteredUser);
 registrationRouter.post('/', usersAccountController.userRegistration);
 registrationRouter.delete('/:id', usersAccountController.deleteUserAccount); 
 registrationRouter.put('/:id', usersAccountController.updateUserAccount);
-  
-
 
 export default registrationRouter;

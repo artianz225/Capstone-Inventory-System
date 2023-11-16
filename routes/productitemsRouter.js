@@ -1,12 +1,12 @@
 import express from 'express';
-import ProductItems from '../models/ProductItems.js';
+import ProductItemController from '../controllers/productItemController.js';
 
 const productItemsRouter = express.Router();
 
-productItemsRouter.get('/', (req, res) => {
-  ProductItems.find({}).then((productitemsData) => {
-    res.json(productitemsData);
-  })
-});
+productItemsRouter.get('/', ProductItemController.getAllProductItems);
+productItemsRouter.post('/', ProductItemController.createProductItem);
+productItemsRouter.put('/:id', ProductItemController.updateProductItem);
+productItemsRouter.delete('/:id', ProductItemController.deleteProductItem); 
+
 
 export default productItemsRouter;

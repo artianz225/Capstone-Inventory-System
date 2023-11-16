@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
 
-const productItemsSchema = new mongoose.Schema({  
-   itemCode: String,
-   brand: String,
-   genericName: String,
-   manufacture: String,
-   expiry: String,
-   price: String,
-   description: String,
-   type: String,
-   category: String
+const productItemsSchema = new mongoose.Schema({
+  itemCode: { type: String},
+  brand: { type: String},
+  genericName: { type: String},
+  manufacture: { type: String},
+  expiry: { type: String},
+  price: { type: String},
+  quantity: { type: String},
+  type: { type: String},
+  category: { type: String},
+  description: { type: String},
 });
 
 productItemsSchema.set('toJSON', {
@@ -20,6 +21,6 @@ productItemsSchema.set('toJSON', {
   }
 })
 
-const productitems = mongoose.model('ProductItems', productItemsSchema);
+const ProductItems = mongoose.model('ProductItems', productItemsSchema);
 
-export default productitems;
+export default ProductItems;

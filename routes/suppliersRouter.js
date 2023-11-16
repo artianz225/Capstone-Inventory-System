@@ -1,12 +1,10 @@
 import express from 'express';
-import Suppliers from '../models/Suppliers.js';
+import supplierController from '../controllers/supplierController.js';
 
 const suppliersRouter = express.Router();
 
-suppliersRouter.get('/', (req, res) => {
-  Suppliers.find({}).then((suppliersData) => {
-    res.json(suppliersData);
-  })
-});
+suppliersRouter.get('/', supplierController.getAllSuppliers);
+suppliersRouter.post('/', supplierController.createSuplier);
+suppliersRouter.delete('/:id', supplierController.deleteSupplier); 
 
 export default suppliersRouter;

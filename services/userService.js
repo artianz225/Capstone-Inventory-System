@@ -5,7 +5,7 @@ function getAllRegisteredUSers() {
 }
 
 function getRegisteredUser(id) {
-  return Registered.findById(id).then(result => result);
+  return Registered.findById(id).then(result => result)
 }
 
 function userRegistration( {username, password} ) {  
@@ -20,9 +20,15 @@ function deleteUserAccount(id) {
   return Registered.findByIdAndDelete(id).then((returnedSatus) => returnedSatus);
 }
 
+function updateUserAccount(id, updatedData) {
+  return Registered.findByIdAndUpdate(id, updatedData, { new: true })
+    .then(updatedRecord => updatedRecord);
+}
+
 export default {
   userRegistration,
   getRegisteredUser,
   getAllRegisteredUSers,
-  deleteUserAccount
+  deleteUserAccount,
+  updateUserAccount
 }
