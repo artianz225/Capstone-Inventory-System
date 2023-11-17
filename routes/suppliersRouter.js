@@ -5,6 +5,8 @@ const suppliersRouter = express.Router();
 
 suppliersRouter.get('/', supplierController.getAllSuppliers);
 suppliersRouter.post('/', supplierController.createSuplier);
-suppliersRouter.delete('/:id', supplierController.deleteSupplier); 
+suppliersRouter.get('/:id', supplierController.getSingleSupplier); 
+suppliersRouter.put('/:id', supplierController.updateSupplier);
+suppliersRouter.delete('/:id', supplierController.deleteSupplier);
 
 export default suppliersRouter;

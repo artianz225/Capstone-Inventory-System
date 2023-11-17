@@ -7,6 +7,8 @@ import errorHandler from "./middlewares/errorHandler.js";
 import pageNotFound from "./middlewares/pageNoteFound.js";
 import connectToDB from "./utils/connectToBD.js";
 import config from "./utils/config.js";
+import loginRouter from "./routes/loginRouter.js";
+import tokenExtractor from './middlewares/tokenExtractor.js'
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use(express.json());
 app.use(express.static('dist'));
 app.use(requestMethosLogger);
 app.use('/api/registrationUsersData', registrationRouter);
+app.use('/api/login', loginRouter);
+app.use(tokenExtractor);
 app.use('/api/productItemsData', productItemsRouter);
 app.use('/api/suppliersData', suppliersRouter);
 app.use(pageNotFound);

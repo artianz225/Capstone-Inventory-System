@@ -20,6 +20,10 @@ function createProductItem( { itemCode, brand, genericName, manufacture, expiry,
     }).then((createdProductItem) => createdProductItem)
 }
 
+function getSingleProductItem(id) {
+  return ProductItems.findById(id).then(result => result)
+}
+
 function updateProductItem(id, updatedData) {
   return ProductItems.findByIdAndUpdate(id, updatedData, { new: true })
     .then(updatedRecord => updatedRecord);
@@ -29,4 +33,4 @@ function deleteProductItem(id) {
   return ProductItems.findByIdAndDelete(id).then((returnedSatus) => returnedSatus);
 }
 
-export default { getAllProductItems, createProductItem, updateProductItem, deleteProductItem }
+export default { getAllProductItems, createProductItem, updateProductItem, deleteProductItem, getSingleProductItem }

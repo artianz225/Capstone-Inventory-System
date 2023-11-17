@@ -18,8 +18,17 @@ function createSupplier( { supplierCode, company, contactPerson, contactNumber, 
     }).then((createdSupplier) => createdSupplier)
 }
 
+function getSingleSupplier(id) {
+  return Suppliers.findById(id).then(result => result)
+}
+
+function updateSupplier(id, updatedData) {
+  return Suppliers.findByIdAndUpdate(id, updatedData, { new: true })
+    .then(updatedRecord => updatedRecord);
+}
+
 function deleteSupplier(id) {
   return Suppliers.findByIdAndDelete(id).then((returnedSatus) => returnedSatus);
 }
 
-export default { getAllSuppliers, createSupplier, deleteSupplier }
+export default { getAllSuppliers, createSupplier, getSingleSupplier, updateSupplier, deleteSupplier }

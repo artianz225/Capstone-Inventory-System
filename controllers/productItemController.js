@@ -4,6 +4,18 @@ function getAllProductItems(_req, res) {
   productItemService.getAllProductItems().then((result) => res.json(result));
 }
 
+function getSingleProductItem(req, res, next) {
+  const id = (req.params.id);
+  productItemService.getSingleProductItem(id)
+  .then((result) => {
+    if (!result) {
+      return res.status(404).end();
+    } 
+    return res.json(result)
+  })
+  .catch((error) => next(error));
+}
+
 function createProductItem(req, res, next) {
   const body = req.body;
   productItemService.createProductItem(body)
@@ -44,4 +56,4 @@ function deleteProductItem(req, res, next) {
   .catch((error) => next(error))
 }
 
-export default { getAllProductItems, createProductItem, updateProductItem, deleteProductItem }
+export default { getAllProductItems, createProductItem, updateProductItem, deleteProductItem, getSingleProductItem }

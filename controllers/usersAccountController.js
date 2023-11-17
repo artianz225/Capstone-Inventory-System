@@ -4,6 +4,14 @@ function getAllRegisteredUSers(req, res) {
   registrationService.getAllRegisteredUSers().then((result) => res.json(result));
 }
 
+function userRegistration(req, res, next) {
+  const body = req.body;
+  registrationService
+  .userRegistration(body)
+  .then((createdUser) => res.status(201).json(createdUser))
+  .catch((error) => next(error));
+}
+
 function getRegisteredUser(req, res, next) {
   const id = (req.params.id);
   registrationService.getRegisteredUser(id)
@@ -14,20 +22,6 @@ function getRegisteredUser(req, res, next) {
     return res.json(result)
   })
   .catch((error) => next(error));
-}
-
-function userRegistration(req, res, next) {
-  const body = req.body;
-  registrationService
-  .userRegistration(body)
-  .then((createdUser) => res.json(createdUser))
-  .catch((error) => next(error));
-}
-
-function deleteUserAccount(req, res, next) {
-    const id = req.params.id;
-    registrationService.deleteUserAccount(id).then((_status) => res.status(204).end())
-    .catch((error) => next(error))
 }
 
 function updateUserAccount(req, res, next) {
@@ -44,10 +38,16 @@ function updateUserAccount(req, res, next) {
   .then((updatedRecord) => {
     if (!updatedRecord) {
       return res.status(404).end();
-    } 
+    }
     return res.json(updatedRecord)
   })
   .catch((error) => next(error));
+}
+
+function deleteUserAccount(req, res, next) {
+    const id = req.params.id;
+    registrationService.deleteUserAccount(id).then((_status) => res.status(204).end())
+    .catch((error) => next(error))
 }
 
 export default {

@@ -1,4 +1,5 @@
 import Registered from '../models/RegisterAccounts.js';
+import bcrypt from 'bcrypt';
 
 function getAllRegisteredUSers() {
   return Registered.find({}).then((result) => result);
@@ -8,12 +9,20 @@ function getRegisteredUser(id) {
   return Registered.findById(id).then(result => result)
 }
 
-function userRegistration( {username, password} ) {  
+async function userRegistration( {  employeeId, name, contact, email, position, username, password} ) {  
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(password, saltRounds);
+
   return Registered.create(
     {
+      employeeId,
+      name,
+      contact,
+      email,
+      position,
       username,
-      password
-    }).then((createdUser) => createdUser)
+      passwordHash,
+  }).then((createdUser) => createdUser)
 }
 
 function deleteUserAccount(id) {
