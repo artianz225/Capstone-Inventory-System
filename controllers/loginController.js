@@ -7,9 +7,15 @@ function login (req, res, next) {
   .then((user) => 
     res
     .status(200)
-    .json({ token: user.token, username: user.username, name: user.name })
+    .json({ token: user.token, 
+            username: user.username, 
+            name: user.name,
+            contact: user.contact,
+            email: user.email,
+            position: user.position
+          })
     )
-    .catch(error => next(error));
+    .catch(error => res.status(403).json({error: error.message }));
 };
 
 export default { login, }

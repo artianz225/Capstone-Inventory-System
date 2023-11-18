@@ -22,6 +22,9 @@ async function login({username, password}) {
     token,
     username: user.username,
     name: user.name,
+    contact: user.contact,
+    email: user.email,
+    position: user.position
   }
 }
 
