@@ -13,6 +13,6 @@ purchasesAmountSchema.set('toJSON', {
   }
 })
 
-const PurchasesAmount = mongoose.model('InOutSupplies', purchasesAmountSchema);
+const PurchasesAmount = mongoose.model('PurchasesAmount', purchasesAmountSchema);
 
 export default PurchasesAmount;

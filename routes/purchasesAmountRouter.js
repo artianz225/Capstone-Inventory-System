@@ -3,9 +3,10 @@ import purchasesAmountController from '../controllers/purchasesAmountController.
 
 const purchasesAmountRouter = express.Router();
 
-purchasesAmountRouter.get('/', purchasesAmountController.getAllPuchasesAmount);
-purchasesAmountRouter.get('/:id', purchasesAmountController.getSinglePurchaseAmount); 
-purchasesAmountRouter.put('/:id', purchasesAmountController.updatePurchaseAmount);
+purchasesAmountRouter.get('/', purchasesAmountController.getAllPurchasesAmount);
+purchasesAmountRouter.get('/:id', purchasesAmountController.getSinglePurchasesAmount); 
+purchasesAmountRouter.put('/:id', purchasesAmountController.updatePurchasesAmount);
+purchasesAmountRouter.post('/', purchasesAmountController.createPurchaseAmount);
 
 
 export default purchasesAmountRouter;

@@ -1,16 +1,24 @@
-import PurchasesAmount from '../models/PurchasesAmount.js'
+import purchasesAmount from '../models/purchasesAmount.js'
 
 function getAllPurchasesAmount() {
-  return PurchasesAmount.find({}).then((result) => result);
+  return purchasesAmount.find({}).then((result) => result);
 }
 
-function getSinglePurchaseAmount(id) {
-  return PurchasesAmount.findById(id).then(result => result)
+function getSinglePurchasesAmount(id) {
+  return purchasesAmount.findById(id).then(result => result)
 }
 
-function updatePurchaseAmount(id, updatedData) {
-  return PurchasesAmount.findByIdAndUpdate(id, updatedData, { new: true })
+function updatePurchasesAmount(id, updatedData) {
+  return purchasesAmount.findByIdAndUpdate(id, updatedData, { new: true })
     .then(updatedRecord => updatedRecord);
 }
 
-export default { getAllPurchasesAmount, getSinglePurchaseAmount, updatePurchaseAmount }
+function createPurchasesAmount( { month, amount } ) {  
+  return purchasesAmount.create(
+    {
+      month,
+      amount,
+    }).then((createdPurchasesAmount) => createdPurchasesAmount)
+}
+
+export default { getAllPurchasesAmount, getSinglePurchasesAmount, updatePurchasesAmount, createPurchasesAmount }

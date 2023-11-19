@@ -1,12 +1,12 @@
 import purchasesAmountService from '../services/purchasesAmountService.js'
 
-function getAllPuchasesAmount(_req, res) {
-  purchasesAmountService.getAllPuchasesAmount().then((result) => res.json(result));
+function getAllPurchasesAmount(_req, res) {
+  purchasesAmountService.getAllPurchasesAmount().then((result) => res.json(result));
 }
 
-function getSinglePurchaseAmount(req, res, next) {
+function getSinglePurchasesAmount(req, res, next) {
   const id = (req.params.id);
-  purchasesAmountService.getSinglePurchaseAmount(id)
+  purchasesAmountService.getSinglePurchasesAmount(id)
   .then((result) => {
     if (!result) {
       return res.status(404).end();
@@ -16,7 +16,7 @@ function getSinglePurchaseAmount(req, res, next) {
   .catch((error) => next(error));
 }
 
-function updatePurchaseAmount(req, res, next) {
+function updatePurchasesAmount(req, res, next) {
   const id = req.params.id;
   const { month, amount } = req.body
   
@@ -25,7 +25,7 @@ function updatePurchaseAmount(req, res, next) {
     amount, 
   };
 
-  purchasesAmountService.updatePurchaseAmount(id, updatedPurchaseAmount)
+  purchasesAmountService.updatePurchasesAmount(id, updatedPurchaseAmount)
   .then((updatedRecord) => {
     if (!updatedRecord) {
       return res.status(404).end();
@@ -35,4 +35,11 @@ function updatePurchaseAmount(req, res, next) {
   .catch((error) => next(error));
 }
 
-export default { getAllPuchasesAmount, getSinglePurchaseAmount, updatePurchaseAmount }
+function createPurchaseAmount(req, res, next) {
+  const body = req.body;
+  purchasesAmountService.createPurchasesAmount(body)
+  .then((createSupplier) => res.json(createSupplier))
+  .catch((error) => next(error))
+}
+
+export default { getAllPurchasesAmount, getSinglePurchasesAmount, updatePurchasesAmount, createPurchaseAmount }
