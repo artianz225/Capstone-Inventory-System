@@ -16,7 +16,7 @@ const app = express();
 
 connectToDB(config.MONGODB_URI);
 
-function requestMethodLogger(req, res, next) {
+function requestMethodLogger(req, _res, next) {
   console.log(`Method: ${req.method}`);
   console.log(`Path: ${req.path}`);
   console.log(`Body: `, req.body);
@@ -27,13 +27,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('dist'));
 app.use(requestMethodLogger);
-app.use('/api/registrationUsersData', registrationRouter);
 app.use(tokenExtractor);
 app.use('/api/login', loginRouter);
+app.use('/api/registrationUsersData', registrationRouter);
 app.use('/api/productItemsData', productItemsRouter);
 app.use('/api/suppliersData', suppliersRouter);
 app.use('/api/inOutSuppliesData', inOutSuppliesRouter);
-app.use('/api/purchasesAmountData', purchasesAmountRouter)
+app.use('/api/purchasesAmountData', purchasesAmountRouter);
 app.use(pageNotFound);
 app.use(errorHandler);
 
