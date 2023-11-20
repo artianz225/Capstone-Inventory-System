@@ -1,23 +1,24 @@
 import loginService from "../services/loginService.js";
 
-function login (req, res, next) {
-  const body = req.body;
+async function login(req, res, _next) {
+  try {
+    const body = req.body;
+    console.log(body); 
 
-  loginService.login(body)
-  .then((user) => 
-    res
-    .status(200)
-    .json({ 
-            token: user.token,
-            employeeId: user.employeeId,
-            username: user.username, 
-            name: user.name,
-            contact: user.contact,
-            email: user.email,
-            position: user.position
-          })
-    )
-    .catch(error => res.status(403).json({error: error.message }));
-};
+    const user = await loginService.login(body);
 
-export default { login, }
+    res.status(200).json({
+      token: user.token,
+      employeeId: user.employeeId,
+      username: user.username,
+      name: user.name,
+      contact: user.contact,
+      email: user.email,
+      position: user.position
+    });
+  } catch (error) {
+    res.status(403).json({ error: error.message });
+  }
+}
+
+export default { login };

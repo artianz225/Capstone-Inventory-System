@@ -6,6 +6,7 @@ import config from '../utils/config.js';
 async function login({ username, password }) {
   const user = await Registered.findOne({ username });
 
+  console.log(user)
   if (!user) {
     throw new Error('Invalid username or password');
   }
