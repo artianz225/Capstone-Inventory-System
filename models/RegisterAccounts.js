@@ -8,10 +8,10 @@ const registerUsersSchema = new mongoose.Schema({
   contact: String,
   email: String,
   position: String ,
-  photoInfo: {
-    url: String,
-    filename: String,
-  },
+  // photoInfo: {
+  //   url: String,
+  //   filename: String,
+  // },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'RegisterAccounts',

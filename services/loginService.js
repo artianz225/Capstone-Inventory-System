@@ -31,10 +31,10 @@ async function login({ username, password }) {
     contact: user.contact,
     email: user.email,
     position: user.position,
-    photoInfo: {
-      url: user.photoInfo.url,
-      filename: user.photoInfo.filename,
-    },
+    // photoInfo: {
+    //   url: user.photoInfo.url,
+    //   filename: user.photoInfo.filename,
+    // },
   };
 }
 
