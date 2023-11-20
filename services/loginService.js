@@ -1,28 +1,28 @@
-import Registered from '../models/RegisterAccounts.js';
-import bcrypt from 'bcrypt';
-import  jwt  from 'jsonwebtoken';
-import config from '../utils/config.js';
+import Registered from "../models/RegisterAccounts.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import config from "../utils/config.js";
 
 async function login({ username, password }) {
   const user = await Registered.findOne({ username });
 
-  console.log(user)
+  console.log(user);
   if (!user) {
-    throw new Error('Invalid username or password');
+    throw new Error("Invalid username or password");
   }
 
   const passwordCorrect = await bcrypt.compare(password, user.passwordHash);
 
   if (!passwordCorrect) {
-    throw new Error('Invalid username or password');
+    throw new Error("Invalid username or password");
   }
-
+  
   const userForToken = {
     username: user.username,
     id: user._id,
   };
 
-  const token = jwt.sign(userForToken, config.SECRET, { expiresIn: '1h' });
+  const token = jwt.sign(userForToken, config.SECRET, { expiresIn: "1h" });
 
   return {
     token,
@@ -40,5 +40,5 @@ async function login({ username, password }) {
 }
 
 export default {
-  login
-}
+  login,
+};
