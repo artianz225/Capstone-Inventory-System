@@ -16,7 +16,7 @@ const app = express();
 
 connectToDB(config.MONGODB_URI);
 
-function requestMethosLogger(req, res, next) {
+function requestMethodLogger(req, res, next) {
   console.log(`Method: ${req.method}`);
   console.log(`Path: ${req.path}`);
   console.log(`Body: `, req.body);
@@ -26,7 +26,7 @@ function requestMethosLogger(req, res, next) {
 app.use(cors());
 app.use(express.json());
 app.use(express.static('dist'));
-app.use(requestMethosLogger);
+app.use(requestMethodLogger);
 app.use(tokenExtractor);
 app.use('/api/registrationUsersData', registrationRouter);
 app.use('/api/login', loginRouter);
