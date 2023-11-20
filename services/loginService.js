@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../utils/config.js";
 
-async function login({ username, password }) {
-  const user = await Registered.findOne({ username });
+async function login({username, password}) {
+  const user = await Registered.findOne({username});
 
   console.log(user);
   if (!user) {
@@ -16,13 +16,13 @@ async function login({ username, password }) {
   if (!passwordCorrect) {
     throw new Error("Invalid username or password");
   }
-  
+
   const userForToken = {
     username: user.username,
     id: user._id,
   };
 
-  const token = jwt.sign(userForToken, config.SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(userForToken, config.SECRET, {expiresIn: "1h"});
 
   return {
     token,
