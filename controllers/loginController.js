@@ -7,7 +7,9 @@ function login (req, res, next) {
   .then((user) => 
     res
     .status(200)
-    .json({ token: user.token, 
+    .json({ 
+            token: user.token,
+            employeeId: user.employeeId,
             username: user.username, 
             name: user.name,
             contact: user.contact,
