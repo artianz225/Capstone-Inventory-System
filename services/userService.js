@@ -13,8 +13,7 @@ async function userRegistration( {  employeeId, name, contact, email, position, 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  return Registered.create(
-    {
+  return Registered.create({
       employeeId,
       name,
       contact,

@@ -4,9 +4,7 @@ function login(req, res, next) {
   const body = req.body;
 
   loginService
-    .login(body)
-    .then((user) =>
-      res.status(200).json({
+    .login(body).then((user) => res.status(200).json({
         token: user.token,
         employeeId: user.employeeId,
         username: user.username,
@@ -15,8 +13,7 @@ function login(req, res, next) {
         email: user.email,
         position: user.position,
       })
-    )
-    .catch((error) => res.status(403).json({error: error.message}));
+    ).catch((error) => res.status(403).json({error: error.message}));
 }
 
 export default {login};
