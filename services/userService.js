@@ -9,7 +9,15 @@ function getRegisteredUser(id) {
   return Registered.findById(id).then(result => result)
 }
 
-async function userRegistration( {  employeeId, name, contact, email, position, username, password} ) {  
+async function userRegistration( {  employeeId, 
+                                    name, 
+                                    contact, 
+                                    email, 
+                                    position, 
+                                    username, 
+                                    password, 
+                                    // photoInfo
+                                  } ) {  
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
@@ -20,7 +28,13 @@ async function userRegistration( {  employeeId, name, contact, email, position, 
       email,
       position,
       username,
-      passwordHash
+      passwordHash,
+
+
+
+      // photoInfo,
+
+
   }).then((createdUser) => createdUser)
 }
 

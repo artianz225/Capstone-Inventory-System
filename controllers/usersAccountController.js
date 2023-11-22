@@ -9,6 +9,9 @@ function getAllRegisteredUSers(req, res) {
 
 async function userRegistration(req, res, next) {
   try {
+
+
+    // Saving Image Part //
     // const storageRef = ref(storage, generateUniqueImageFilename(req.file));
     // const metadata = {
     //   contentType: 'image/jpeg'
@@ -17,14 +20,23 @@ async function userRegistration(req, res, next) {
     // const snapshot = await uploadBytes(storageRef, req.file.buffer, metadata);
     // const photoUrl = `https://firebasestorage.googleapis.com/v0/b/${snapshot.ref.bucket}/o/${snapshot.ref.fullPath}?alt=media`;
     // console.log(photoUrl);
+    // Saving Image Part //
+
+
     const body = req.body;
 
     const createdUser = await registrationService.userRegistration({
       ...body,
+
+
+    // Saving Image Part //
         //  photoInfo: {
         //   url: photoUrl,
         //   filename: snapshot.ref.fullPath,
         //  }
+    // Saving Image Part //
+
+         
     });
 
     res.status(201).json(createdUser);
