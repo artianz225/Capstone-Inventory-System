@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const registerUsersSchema = new mongoose.Schema({
+const usersSchema = new mongoose.Schema({
   employeeId: String,
   username: String,
   passwordHash: String,
@@ -8,23 +8,18 @@ const registerUsersSchema = new mongoose.Schema({
   contact: String,
   email: String,
   position: String ,
-
-
-
-  // photoInfo: {
-  //   url: String,
-  //   filename: String,
-  // },
-
-
+  photoInfo: {
+    url: String,
+    filename: String,
+  },
 
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'RegisterAccounts',
+    ref: 'Users',
   },
 });
 
-registerUsersSchema.set('toJSON', {
+usersSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -33,6 +28,6 @@ registerUsersSchema.set('toJSON', {
   }
 })
 
-const Registered = mongoose.model('RegisteredAccounts', registerUsersSchema);
+const Users = mongoose.model('Users', usersSchema);
 
-export default Registered;
+export default Users;

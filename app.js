@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import registrationRouter from "./routes/resgistrationRouter.js";
+import usersRouter from "./routes/usersRouter.js"
 import productItemsRouter from "./routes/productitemsRouter.js";
 import suppliersRouter from "./routes/suppliersRouter.js";
 import inOutSuppliesRouter from "./routes/inOutSuppliesRouter.js";
@@ -29,7 +29,7 @@ app.use(express.static('dist'));
 app.use(requestMethodLogger);
 app.use(tokenExtractor);
 app.use('/api/login', loginRouter);
-app.use('/api/registrationUsersData', registrationRouter);
+app.use('/api/UsersData', usersRouter);
 app.use('/api/productItemsData', productItemsRouter);
 app.use('/api/suppliersData', suppliersRouter);
 app.use('/api/inOutSuppliesData', inOutSuppliesRouter);

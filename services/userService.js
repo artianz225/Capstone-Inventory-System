@@ -1,27 +1,19 @@
-import Registered from '../models/RegisterAccounts.js';
+import Users from '../models/users.js';
 import bcrypt from 'bcrypt';
 
-function getAllRegisteredUSers() {
-  return Registered.find({}).then((result) => result);
+function getAllUsers() {
+  return Users.find({}).then((result) => result);
 }
 
-function getRegisteredUser(id) {
-  return Registered.findById(id).then(result => result)
+function getUser(id) {
+  return Users.findById(id).then(result => result)
 }
 
-async function userRegistration( {  employeeId, 
-                                    name, 
-                                    contact, 
-                                    email, 
-                                    position, 
-                                    username, 
-                                    password, 
-                                    // photoInfo
-                                  } ) {  
+async function createUser( {  employeeId, name, contact, email, position, username, password, photoInfo } ) {  
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  return Registered.create({
+  return Users.create({
       employeeId,
       name,
       contact,
@@ -29,28 +21,25 @@ async function userRegistration( {  employeeId,
       position,
       username,
       passwordHash,
-
-
-
-      // photoInfo,
+      photoInfo,
 
 
   }).then((createdUser) => createdUser)
 }
 
-function deleteUserAccount(id) {
-  return Registered.findByIdAndDelete(id).then((returnedSatus) => returnedSatus);
+function deleteUser(id) {
+  return Users.findByIdAndDelete(id).then((returnedSatus) => returnedSatus);
 }
 
-function updateUserAccount(id, updatedData) {
-  return Registered.findByIdAndUpdate(id, updatedData, { new: true })
+function updateUser(id, updatedData) {
+  return Users.findByIdAndUpdate(id, updatedData, { new: true })
     .then(updatedRecord => updatedRecord);
 }
 
 export default {
-  userRegistration,
-  getRegisteredUser,
-  getAllRegisteredUSers,
-  deleteUserAccount,
-  updateUserAccount
+  getAllUsers,
+  getUser,
+  createUser,
+  deleteUser,
+  updateUser
 }

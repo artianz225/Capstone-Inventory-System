@@ -1,6 +1,6 @@
 import loginService from "../services/loginService.js";
 
-function login(req, res, next) {
+function login(req, res, _next) {
   const body = req.body;
 
   loginService
@@ -12,9 +12,9 @@ function login(req, res, next) {
         contact: user.contact,
         email: user.email,
         position: user.position,
-        // photoInfo: {
-        //   url: user.photoInfo.url, // Assuming user.photoInfo.url contains the photo URL
-        // },
+        photoInfo: {
+          url: user.photoInfo.url,
+        },
       })
     ).catch((error) => res.status(403).json({error: error.message}));
 }
